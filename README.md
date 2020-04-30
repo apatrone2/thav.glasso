@@ -4,7 +4,7 @@ Thresholded Adaptive Validation: Tuning the Graphical Lasso for Graph Recovery
 This repository provides the implementations and simulations described in the paper Thresholded Adaptive Validation: Tuning the Graphical Lasso for Graph Recovery by Mike Laszkiewicz, Asja Fischer, and Johannes Lederer.
 
 # Usage
-The file R/generate_precmatrix.R contains the implementation of the precision matrix generation method used in the paper. 
+The file 'R/generate_precmatrix.R' contains the implementation of the precision matrix generation method used in the paper. 
 The file R/av_estimation.R contains the implementations of the adaptive validation (AV) estimator, av_glasso, and the corresponding thresholded adaptive validation (thAV) estimator, thAV.estimator.
 The implementation of the simulations can be found in R/def_simulations.R
 
