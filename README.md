@@ -9,7 +9,7 @@ This repository provides the implementations and simulations described in the pa
 ```R
 # install.packages("devtools")
 # library("devtools")
-devtools::install_github('UUPharmacometrics/xpose')
+devtools::install_github('MikeLasz/thav.glasso')
 ## Further requirements:
 # install.packages("MASS") # to sample from multivariate normal
 # install.packages("igraph") # to generate graphs
