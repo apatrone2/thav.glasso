@@ -68,6 +68,13 @@ comparisonf1( 400, 200, graph="scale-free", lambda = 2, latex=TRUE)
 # compare recovered graphs
 set.seed(121)
 graph_comparison(300, 200)
+
+
+# thav using lambda=2 for a random graph:
+set.seed(84)
+simulation_thavf1(n_seq=c(300, 200, 400), d_seq=c(200, 300, 200), graph="random", lambda=2, latex=TRUE)
+set.seed(30)
+simulation_thavf1(n_seq=c(300, 200, 300), d_seq=c(100, 200, 300), graph="random", lambda=2, latex=TRUE)
 ```
 
 
@@ -119,7 +126,7 @@ thav_topvalues(c(300, 200, 400), c(200, 300, 200), graph="scale-free")
 ###3.1.2 Results from the Supplement
 ```{r}
 set.seed(21)
-thav_topvaluess(n_seq=c(300, 200, 300), d_seq=c(100, 200, 300))
+thav_topvalues(n_seq=c(300, 200, 300), d_seq=c(100, 200, 300))
 set.seed(78)
 thav_topvalues(n_seq=c(300, 200, 300), d_seq=c(100, 200, 300), graph="scale-free")
 ```

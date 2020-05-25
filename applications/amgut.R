@@ -1,8 +1,7 @@
 library(devtools)
-install_github("zdk123/SpiecEasi")
-install("..\\..\\thav.glasso")
-library("SpiecEasi")
-library("thav.glasso")
+devtools::install_github("zdk123/SpiecEasi")
+install("../../thav.glasso")
+require("thav.glasso")
 require("phyloseq")
 require("igraph")
 require("huge")
@@ -17,7 +16,7 @@ ig2.mb <- adj2igraph(se.mb.amgut2$refit$stars,  vertex.attr=list(name=taxa_names
 plot_network(ig2.mb, amgut2.filt.phy, type='taxa', color="Rank4", layout.method=layout.graphopt)
 
 # our method:
-thav <- thAV.estimator(huge.npn(se.mb.amgut2$est$data), threshold=3)
+thav <- thAV.estimator(huge.npn(se.mb.amgut2$est$data), lambda=1, C=0.5, seq_r=seq(0.05, 0.4, length.out = 40))
 adj_thav <- apply( thav, c(1,2), function(x) if(x!=0){ return(1)} else{return(0)})
 ig.thav <- adj2igraph( adj_thav, vertex.attr=list(name=taxa_names(amgut2.filt.phy)))
 

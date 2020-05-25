@@ -370,6 +370,64 @@ comparisonf1 <- function(n, d, seq_r=0.2 * 0.95^(40:0), C=0.3, graph=NULL, lambd
   }
 }
 
+#' Computes a simulation study of the resulting $F_1$-score, Precision and Recall using only thAV
+#' 
+#' @param n_seq Sequence of number of samples ((n_seq[j], d_seq[j]) corresponds to one setting)
+#' @param d_seq Sequence of number of dimensions ((n_seq[j], d_seq[j]) corresponds to one setting)
+#' @param seq_r Set of possible regularization parameters for the thAV
+#' @param C Constant C used to tune the thAV
+#' @param graph Type of graph. If graph=NULL, this function does the simulation study for random and scale-free graphs, subsequentially
+#' @param lambda Threshold factor used to threshold the AV. We thresholdung by lambda*C*r.
+#' @param num_reps Number of repetitions of the recovery task for each recovery method
+#' @param latex If TRUE, this function returns a latex output via the stargazer package
+#' @return A Matrix that consists of the mean of each performance measure ($F_1$-score, Precision, and Recall) and the standard deviation in brackets
+#' @export
+simulation_thavf1 <- function(n_seq, d_seq, seq_r=0.2 * 0.95^(40:0), C=0.3, graph="random", lambda=3, num_reps=50, latex=FALSE)
+{
+  num_simus <- length(n_seq)
+  f1_results <- precision_results <- recall_results <- matrix( rep(0, num_reps * num_simus), ncol=num_reps)
+  pb <- txtProgressBar(min = 0, max = num_reps * num_simus, style = 3)
+  
+  mean_results <- std_results <- matrix( rep(0, num_simus * 3), ncol=3)
+  colnames(mean_results) <- colnames(std_results) <- c("F_1", "Precision", "Recall")
+  
+  for(simu in 1:num_simus)
+  {
+    n <- n_seq[simu]
+    d <- d_seq[simu]
+    
+    for(j in 1:num_reps)
+    {
+      theta <- generateGraph(d, graph=graph)[[1]]
+      data <- mvrnorm(n, mu=rep(0, d), Sigma=solve(theta))
+      
+      thav <- thAV.estimator(data, seq_r=seq_r, C=C, lambda=lambda)
+      score <- f1score(theta, thav)
+      f1_results[simu, j] <- score$f1
+      precision_results[simu, j] <- score$precision
+      recall_results[simu, j] <- score$recall
+      
+      setTxtProgressBar(pb, j + (simu - 1) * num_reps)
+    }
+    mean_results[simu, 1] <- mean(f1_results[simu, ])
+    mean_results[simu, 2] <- mean(precision_results[simu, ])
+    mean_results[simu, 3] <- mean(recall_results[simu, ])
+    
+    std_results[simu, 1] <- std(f1_results[simu, ])
+    std_results[simu, 2] <- std(precision_results[simu, ])
+    std_results[simu, 3] <- std(recall_results[simu, ])
+  }
+  
+  summary <- conc_matrix(mean_results, std_results)
+  if( latex)
+  {
+    stargazer(summary)
+  }
+  else
+  {
+    return(summary)
+  }
+}
 #' Compares the resulting graphs for several estimation methods
 #' 
 #' @param n Number of samples
