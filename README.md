@@ -23,7 +23,7 @@ devtools::install_github('MikeLasz/thav.glasso')
 ```
 ## Load thav.glasso and requirements
 ```R
-library("thav.glasso", "MASS", "igraph", "stargazer", "huge", "matrixcalc", "glasso")
+lapply(c("thav.glasso", "MASS", "igraph", "stargazer", "huge", "matrixcalc", "glasso"), library, character.only=TRUE)
 ```
 
 # Usage
