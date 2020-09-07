@@ -54,7 +54,7 @@ plot.igraph(network, layout=layout)
 ## Apply the AV and thAV
 ```R
 # generate Data
-data <- mvrnorm(300, mu=rep(0, 200), Sigma=solve(theta))
+data <- scale(mvrnorm(300, mu=rep(0, 200), Sigma=solve(theta)))
 
 # calculate the AV
 av <- av_glasso(data)
