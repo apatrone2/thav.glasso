@@ -1,0 +1,15 @@
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Di, Okt 06, 2020 - 16:26:53
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} ccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+F\_1 & Precision & Recall \\ 
+\hline \\[-1.8ex] 
+0.96 (0.02) & 0.98 (0.01) & 0.93 (0.03) \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 

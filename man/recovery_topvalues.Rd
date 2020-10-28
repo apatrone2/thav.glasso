@@ -2,40 +2,24 @@
 % Please edit documentation in R/def_simulations.R
 \name{recovery_topvalues}
 \alias{recovery_topvalues}
-\title{Simulation study about the recovery of the num_top most significant precision matrix entries}
+\title{Simulation study about the recovery of the most significant precision matrix entries.
+This function concatinates the results of recovery_topvalues_split and returns a summary.}
 \usage{
-recovery_topvalues(
-  n_seq,
-  d_seq,
-  num_top = 50,
-  num_reps = 50,
-  graph = "random",
-  seq_r = 0.2 * 0.95^(40:0),
-  threshold = 3,
-  C = 0.3,
-  latex = FALSE
-)
+recovery_topvalues(n_seq, d_seq, num_parts = c(2, 3, 2), graph = "random")
 }
 \arguments{
-\item{n_seq}{Sequence of sample sizes used for the simulation}
+\item{n_seq}{Sequence of sample size}
 
-\item{d_seq}{Sequence of dimensionaly of the precision matrix used for the simulation}
+\item{d_seq}{Sequence of dimensions}
 
-\item{num_top}{Amount of entries that are going to be analyzed}
-
-\item{num_reps}{Number of repetitions which are run during the simulation}
+\item{num_parts}{Sequence of number of parts, in each setting n_seq[j], d_seq[j]}
 
 \item{graph}{Type of the graph}
-
-\item{seq_r}{Sequence of possible regularization parameters for the thAV}
-
-\item{latex}{If TRUE, returns a latex output}
-
-\item{lambda}{Factor used for the threshold lambda*C*r}
 }
 \value{
-Mean and standard deviation of the proportional amount of top_edges that got recovered
+Mean and standard deviation of the proportional amount of most significant edges that got recovered
 }
 \description{
-Simulation study about the recovery of the num_top most significant precision matrix entries
+Simulation study about the recovery of the most significant precision matrix entries.
+This function concatinates the results of recovery_topvalues_split and returns a summary.
 }

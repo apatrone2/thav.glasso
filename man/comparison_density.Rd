@@ -2,18 +2,9 @@
 % Please edit documentation in R/def_simulations.R
 \name{comparison_density}
 \alias{comparison_density}
-\title{Simulation study of the recovery performance of thAV, StARS, and RIC if we change the density of a random graph}
+\title{Reads the .txt files created by the comparison_density_split function to summarize the resulting F1-score, Precision and Recall using the oracle, thAV, StARS, scaled lasso, and TIGER.}
 \usage{
-comparison_density(
-  n,
-  d,
-  seq_density,
-  C = 0.3,
-  seq_r = 0.2 * 0.95^(40:0),
-  graph = "random",
-  num_reps = 50,
-  latex = FALSE
-)
+comparison_density(n, d, seq_density, graph, num_parts)
 }
 \arguments{
 \item{n}{Number of samples}
@@ -22,19 +13,13 @@ comparison_density(
 
 \item{seq_density}{Sequence with values for p, which is the probability to connect 2 edges of a Gilbert graph (this is the way how the random graph is generated).}
 
-\item{C}{Constant C used to tune the thAV}
-
-\item{seq_r}{Set of possible regularization parameters for the thAV}
-
 \item{graph}{Type of graph. If graph=NULL, this function does the simulation study for random and scale-free graphs, subsequentially}
 
-\item{num_reps}{Number of repetitions of the recovery task for each recovery method}
-
-\item{latex}{If TRUE, this function returns a latex output via the stargazer package}
+\item{num_parts}{Number of parts in which we split the simulation study}
 }
 \value{
-Matrix that measures average (and standard deviation) of the F_1-score between the true graph and an estimation (thAV, StARS, and RIC)
+Matrix that measures average (and standard deviation) of the F1-score between the true graph and an estimation (thAV, StARS, and RIC)
 }
 \description{
-Simulation study of the recovery performance of thAV, StARS, and RIC if we change the density of a random graph
+Reads the .txt files created by the comparison_density_split function to summarize the resulting F1-score, Precision and Recall using the oracle, thAV, StARS, scaled lasso, and TIGER.
 }

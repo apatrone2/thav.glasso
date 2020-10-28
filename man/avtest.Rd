@@ -18,7 +18,7 @@ avtest(estimates, seq_r, counter_r, counter_r_dash, C)
 \item{C}{constant C that is used for the AV calibration}
 }
 \value{
-TRUE if $l(...) > Cr_dash + Cr$, else FALSE
+TRUE if l(...) > Cr_dash + Cr, else FALSE
 }
 \description{
 Computes the test that is used in the AV calibration scheme

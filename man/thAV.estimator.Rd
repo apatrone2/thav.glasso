@@ -2,22 +2,28 @@
 % Please edit documentation in R/av_estimation.r
 \name{thAV.estimator}
 \alias{thAV.estimator}
-\title{Compute the thAV estimator}
+\title{Computes the thAV estimator}
 \usage{
-thAV.estimator(data, seq_r = 0.2 * 0.95^(40:0), C = 0.3, lambda = 3)
+thAV.estimator(data, C = 0.7, lambda = 1, mute = TRUE)
 }
 \arguments{
-\item{data}{Data matrix of size $n\times d$}
-
-\item{seq_r}{Sequence of considered regularization parameters}
+\item{data}{Data matrix of size n x d}
 
 \item{C}{constant C that is used to calibrate the AV regularization parameter}
 
 \item{lambda}{Threshold factor lambda: We threshold the AV solution by lambda*C*av$TuningParameter}
+
+\item{mute}{If FALSE, the method prints the selected AV regularization parameter. The default value is TRUE.}
 }
 \value{
 The thresholded AV estimator
 }
 \description{
-Compute the thAV estimator
+Computes the thAV estimator
+}
+\examples{
+theta <- generateGraph(d=100)[[1]]
+Sigma <- solve(theta)
+data <- scale(mvrnorm(n=200, mu=rep(0, 100), Sigma=Sigma))
+thav <- thAV.estimator(data)
 }

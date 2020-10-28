@@ -2,14 +2,12 @@
 % Please edit documentation in R/av_estimation.r
 \name{av_glasso}
 \alias{av_glasso}
-\title{Compute the Adaptive Validation Graphical Lasso}
+\title{Computes the adaptive validation graphical lasso}
 \usage{
-av_glasso(data, seq_r = 0.2 * 0.95^(40:0), C = 0.3)
+av_glasso(data, C = 0.7)
 }
 \arguments{
-\item{data}{Data matrix of size $n\times d$}
-
-\item{seq_r}{Sequence of considered regularization parameters}
+\item{data}{Data matrix of size n x d}
 
 \item{C}{constant C that is used to calibrate the AV regularization parameter}
 }
@@ -19,5 +17,13 @@ The selected regularization parameter
 The resulting graphical lasso estimate
 }
 \description{
-Compute the Adaptive Validation Graphical Lasso
+Computes the adaptive validation graphical lasso
+}
+\examples{
+theta <- generateGraph(d=100)[[1]]
+Sigma <- solve(theta)
+data <- scale(mvrnorm(n=200, mu=rep(0, 100), Sigma=Sigma))
+av <- av_glasso(data)
+av_tp <- av$TuningParameter
+av_est <- av$Thetahat
 }

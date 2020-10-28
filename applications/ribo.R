@@ -1,12 +1,6 @@
 require("devtools")
 install("..\\..\\thav.glasso")
-require("thav.glasso")
-require("MASS") # to sample from multivariate normal
-require("igraph") # to generate graphs
-require("stargazer") # to produce latex outputs
-require("huge")
-require("matrixcalc")
-require("glasso")
+load_libraries()
 require("hdi")
 
 igraph_options(vertex.size       =2,
@@ -17,6 +11,7 @@ igraph_options(vertex.size       =2,
                vertex.frame.color=NA,
                edge.color        ="coral1")
 
+# Select 100 most-varying features
 set.seed(52)
 data("riboflavin")
 data.ribo <- matrix(riboflavin$x, ncol=4088)
@@ -31,17 +26,26 @@ dim( data.v100)
 
 genes.scaled <- huge.npn( data.v100)
 
-#thav <- thAV.estimator(genes.scaled) # old version
-thav <- thAV.estimator(genes.scaled, C=0.5, lambda=1, seq_r = seq(0.05, 0.4, length.out = 40))
+thav <- thAV.estimator(genes.scaled, mute=FALSE)
   
 network.thAV <- graph.adjacency( thav, mode="undirected", weighted=TRUE, diag=FALSE)
 network.layout <- layout.graphopt( network.thAV)
-#png("..\\plots\\ribo_thAV.png") # saves the plot
+png("../plots/ribo_thAV.png", width=1900, height=1600, res=200) # saves the plot
 par(mar=c(0, 0, 0, 0))
 plot.igraph( network.thAV, layout=network.layout)
-#dev.off() # saves the plot
+dev.off() # saves the plot
 
-stars <- huge.select( huge( genes.scaled, method = "mb", nlambda=30), criterion="stars", stars.thres=0.05)#$opt.icov
+#lambda = 0.5
+thav2 <- thAV.estimator(genes.scaled, lambda=0.5)
+
+network.thAV2 <- graph.adjacency(thav2, mode="undirected", weighted=TRUE, diag=FALSE)
+network.layout2 <- layout.graphopt( network.thAV2)
+png("../plots/ribo_thAV2.png", width=1900, height=1600, res=200) # saves the plot
+par(mar=c(0, 0, 0, 0))
+plot.igraph( network.thAV2, layout=network.layout2)
+dev.off()
+
+stars <- huge.select( huge( genes.scaled, method = "mb", nlambda=30), criterion="stars", stars.thres=0.05)
 network.mb <- graph.adjacency( stars$refit, mode="undirected", weighted=TRUE, diag=FALSE)
 network.layout <- layout.graphopt( network.mb)
 #png("..\\plots\\ribo_mb.png") # saves the plot

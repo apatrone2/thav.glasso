@@ -1,0 +1,25 @@
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Fr, Okt 09, 2020 - 09:41:40
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \$F\_1\$ & Precision & Recall \\ 
+\hline \\[-1.8ex] 
+oracle & 0.3 (0.08) & 0.29 (0.24) & 0.6 (0.2) \\ 
+StARS & 0.23 (0.09) & 0.15 (0.07) & 0.56 (0.1) \\ 
+scaled lasso & 0.34 (0.05) & 0.22 (0.03) & 0.73 (0.09) \\ 
+TIGER & 0.27 (0.07) & 0.17 (0.06) & 0.78 (0.11) \\ 
+score\_ebic1 & 0.32 (0.21) & 0.32 (0.23) & 0.63 (0.23) \\ 
+score\_ebic0.5 & 0.31 (0.21) & 0.27 (0.2) & 0.67 (0.2) \\ 
+scio\_cv & 0.09 (0.13) & 0.36 (0.49) & 0.05 (0.07) \\ 
+scio\_bregman & 0.3 (0.06) & 0.92 (0.09) & 0.18 (0.04) \\ 
+thAV & 0.42 (0.14) & 0.36 (0.18) & 0.62 (0.13) \\ 
+score\_AV & 0.28 (0.07) & 0.94 (0.06) & 0.16 (0.05) \\ 
+scio\_AV & 0.28 (0.06) & 0.95 (0.08) & 0.17 (0.05) \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 

@@ -4,7 +4,7 @@
 \alias{threshold}
 \title{Thresholds the AV estimator}
 \usage{
-threshold(av, C = 0.3, lambda = 3)
+threshold(av, C = 0.7, lambda = 1)
 }
 \arguments{
 \item{av}{List AV containing the regularization parameter and the estimator, which is obtained by applying the av_glasso function}

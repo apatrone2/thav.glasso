@@ -2,15 +2,15 @@
 % Please edit documentation in R/def_simulations.R
 \name{performance_thav}
 \alias{performance_thav}
-\title{Compute the performance of the thAV for large-scale examples}
+\title{Computes the performance of the thAV for large-scale examples}
 \usage{
 performance_thav(
   d,
   n = 500,
-  seq_r = 0.2 * 0.95^(40:0),
-  C = 0.3,
+  seq_r = seq(0.05, 0.4, length.out = 40),
+  C = 0.7,
   graph = "random",
-  lambda = 3,
+  lambda = 1,
   num_reps = 20,
   latex = TRUE
 )
@@ -33,8 +33,8 @@ performance_thav(
 \item{latex}{If TRUE, this function returns a latex output via the stargazer package}
 }
 \value{
-A Matrix that consists of the mean of each performance measure ($F_1$-score, Precision, and Recall) and the standard deviation in brackets.
+A Matrix that consists of the mean of each performance measure (F1-score, Precision, and Recall) and the standard deviation in brackets.
 }
 \description{
-Compute the performance of the thAV for large-scale examples
+Computes the performance of the thAV for large-scale examples
 }

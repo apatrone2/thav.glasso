@@ -47,8 +47,6 @@ generateGraph <- function(d, graph="random", rangemin=0.5, rangemax=0.9, prob=NU
   {
     adj <- adj - diag( floor( 10 * eigen(adj)$values[d]) / 10, d)
   }
-  
-  
   return( list(round(adj, 4) / adj[1,1], network.layout))
 }
 

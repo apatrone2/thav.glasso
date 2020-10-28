@@ -9,6 +9,9 @@ std(x)
 \arguments{
 \item{x}{Vector}
 }
+\value{
+Standard deviation of vector x
+}
 \description{
 Returns the standard deviation of a vector
 }

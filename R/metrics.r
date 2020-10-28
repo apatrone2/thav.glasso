@@ -1,4 +1,4 @@
-#' Compute the infloss on the off-diagonals of two matrices
+#' Computes the infloss on the off-diagonals of two matrices
 #'
 #' @param A Matrix
 #' @param B Matrix with the same size as A
@@ -11,7 +11,7 @@ infloss <- function(A, B)
   return(max(dif))
 }
 
-#' Compute precision of a precision matrix estimator
+#' Computes precision of a precision matrix estimator
 #'
 #' @param theta True precision matrix
 #' @param theta.estimate Estimator of theta

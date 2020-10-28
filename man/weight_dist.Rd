@@ -2,7 +2,7 @@
 % Please edit documentation in R/def_simulations.R
 \name{weight_dist}
 \alias{weight_dist}
-\title{Investigate the empirical distribution of the absolute values of the graphs edges}
+\title{Investigates the empirical distribution of the absolute values of the graphs edges}
 \usage{
 weight_dist(d, graph = "random", num_reps = 50)
 }
@@ -14,8 +14,8 @@ weight_dist(d, graph = "random", num_reps = 50)
 \item{num_reps}{Number of repetitions}
 }
 \value{
-Saves a .csv-file that can be read by visualizations_weights.ipynb to plot a histogram of the weight distribution
+Saves a .txt file that can be read by visualizations_weights.ipynb to plot a histogram of the weight distribution
 }
 \description{
-Investigate the empirical distribution of the absolute values of the graphs edges
+Investigates the empirical distribution of the absolute values of the graphs edges
 }

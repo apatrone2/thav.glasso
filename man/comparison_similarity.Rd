@@ -2,14 +2,14 @@
 % Please edit documentation in R/def_simulations.R
 \name{comparison_similarity}
 \alias{comparison_similarity}
-\title{Compare the similarity of thAV estimates based on different C.}
+\title{Compares the similarity of thAV estimates based on different C.}
 \usage{
 comparison_similarity(
   n,
   d,
-  seq_C = c(0.2, 0.3, 0.4, 0.5),
+  seq_C = c(0.4, 0.5, 0.6, 0.7, 0.8),
   graph = "random",
-  num_reps = 50,
+  num_reps = 25,
   latex = FALSE
 )
 }
@@ -27,8 +27,8 @@ comparison_similarity(
 \item{latex}{If TRUE, this function returns a latex output via the stargazer package}
 }
 \value{
-Matrix with average (and standard deviation) of F_1-score between thAV estimates corresponding to the values in seq_C. In addition, this method also prints the average F_1-score between a thAV (based on a specific C) and the true graph.
+Matrix with average (and standard deviation) of F1-score between thAV estimates corresponding to the values in seq_C. In addition, this method also prints the average F1-score between a thAV (based on a specific C) and the true graph. The results are saved in a .txt file.
 }
 \description{
-Compare the similarity of thAV estimates based on different C.
+Compares the similarity of thAV estimates based on different C.
 }

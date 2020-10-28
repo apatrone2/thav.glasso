@@ -2,22 +2,22 @@
 % Please edit documentation in R/def_simulations.R
 \name{adaptation_threshold}
 \alias{adaptation_threshold}
-\title{Computes the performance (F_1, Precision, and Recall) of thAV using several thresholds, and of StARS and RIC.}
+\title{Computes the performance (F1, Precision, and Recall) of thAV using different thresholds. The generated .txt-files are used for the adaptation_threshold.ipynb to create a plot.}
 \usage{
-adaptation_threshold(n, d, C = 0.3, graph = "random")
+adaptation_threshold(n, d, seq_C = c(0.5, 0.6, 0.7, 0.8), graph = "random")
 }
 \arguments{
 \item{n}{Number of samples}
 
 \item{d}{Number of dimensions}
 
-\item{C}{Constant C used to tune the thAV}
+\item{graph}{Type of graph}
 
-\item{graph}{Type of graph. If graph=NULL, this function does the simulation study for random and scale-free graphs, subsequentially}
+\item{C}{Constant C used to tune the thAV}
 }
 \value{
-Saves .csv-files that will be used by adaptation_threshold.ipynb to generate a plot
+Saves .txt-files that will be used by adaptation_threshold.ipynb to generate a plot
 }
 \description{
-Computes the performance (F_1, Precision, and Recall) of thAV using several thresholds, and of StARS and RIC.
+Computes the performance (F1, Precision, and Recall) of thAV using different thresholds. The generated .txt-files are used for the adaptation_threshold.ipynb to create a plot.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/def_simulations.R
 \name{graph_comparison}
 \alias{graph_comparison}
-\title{Compares the resulting graphs for several estimation methods}
+\title{Compares the resulting graphs for several estimation methods (true graph, oracle, StARS, scaled lasso, TIGER, rSME (eBIC), SCIO (CV), SCIO (bregman), and thAV)}
 \usage{
 graph_comparison(n, d, type = "random")
 }
@@ -14,8 +14,8 @@ graph_comparison(n, d, type = "random")
 \item{type}{Graph type}
 }
 \value{
-Saves plots and $F_1$-scores of the true graph, the oracle, the thAV, the thAV2 (lambda=2), the StARS, and the RIC
+Saves plots of the graphs and returns F1-scores
 }
 \description{
-Compares the resulting graphs for several estimation methods
+Compares the resulting graphs for several estimation methods (true graph, oracle, StARS, scaled lasso, TIGER, rSME (eBIC), SCIO (CV), SCIO (bregman), and thAV)
 }

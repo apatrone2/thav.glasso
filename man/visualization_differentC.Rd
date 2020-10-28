@@ -2,14 +2,14 @@
 % Please edit documentation in R/def_simulations.R
 \name{visualization_differentC}
 \alias{visualization_differentC}
-\title{Compare the resulting graphs of thAV with different C}
+\title{Compares the resulting graphs of thAV with different C}
 \usage{
 visualization_differentC(
   n,
   d,
-  seq_C = c(0.2, 0.3, 0.4, 0.5),
+  seq_C = c(0.5, 0.6, 0.7, 0.8),
   graph = "random",
-  add_title = TRUE
+  add_title = FALSE
 )
 }
 \arguments{
@@ -21,11 +21,11 @@ visualization_differentC(
 
 \item{graph}{Graph type}
 
-\item{add_titel}{If TRUE, all plots have a title}
+\item{add_titlw}{If TRUE, all plots have a title}
 }
 \value{
-Plots of the different thAV graphs that are computet using C from seq_C. In addition, this method prints a table with the f_1 score between the truth and each thAV estimate.
+Plots of the different thAV graphs that are computet using C from seq_C. In addition, this method prints a table with the F1 score between the truth and each thAV estimate.
 }
 \description{
-Compare the resulting graphs of thAV with different C
+Compares the resulting graphs of thAV with different C
 }

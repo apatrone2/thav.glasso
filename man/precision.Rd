@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.r
 \name{precision}
 \alias{precision}
-\title{Compute precision of a precision matrix estimator}
+\title{Computes precision of a precision matrix estimator}
 \usage{
 precision(theta, theta.estimate)
 }
@@ -15,5 +15,5 @@ precision(theta, theta.estimate)
 Precision of theta.estimate with theta being the target
 }
 \description{
-Compute precision of a precision matrix estimator
+Computes precision of a precision matrix estimator
 }

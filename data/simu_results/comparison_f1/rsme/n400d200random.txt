@@ -1,0 +1,16 @@
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Mo, Okt 19, 2020 - 14:01:15
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & F1 & Precision & Recall \\ 
+\hline \\[-1.8ex] 
+Mean & $0.740$ & $0.740$ & $0.870$ \\ 
+Std & $0.180$ & $0.210$ & $0.220$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 

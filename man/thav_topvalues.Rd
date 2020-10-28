@@ -2,16 +2,16 @@
 % Please edit documentation in R/def_simulations.R
 \name{thav_topvalues}
 \alias{thav_topvalues}
-\title{Exemplary recovery in F_1-score of the top edges for several settings}
+\title{Exemplary recovery in F1-score of the top edges for several settings}
 \usage{
-thav_topvalues(n_seq, d_seq, num_top = 50, graph = "random", latex = TRUE)
+thav_topvalues(n_seq, d_seq, perc_top = 0.2, graph = "random", latex = TRUE)
 }
 \arguments{
 \item{n_seq}{Sequence of sample sizes used for the simulation}
 
 \item{d_seq}{Sequence of dimensionaly of the precision matrix used for the simulation}
 
-\item{num_top}{Amount of entries that are going to be analyzed}
+\item{perc_top}{Percentage of most significant precision matrix entries that are taken into consideration}
 
 \item{graph}{Type of the graph}
 
@@ -21,5 +21,5 @@ thav_topvalues(n_seq, d_seq, num_top = 50, graph = "random", latex = TRUE)
 Table including the largest, the num_top'th largest absolute value of Theta, the reference value 6Cr, and the proportional amount of recovered top edges for several settings
 }
 \description{
-Exemplary recovery in F_1-score of the top edges for several settings
+Exemplary recovery in F1-score of the top edges for several settings
 }

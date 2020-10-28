@@ -9,7 +9,10 @@ conc_matrix(mean_matrix, std_matrix)
 \arguments{
 \item{mean_matrix}{Matrix consisting of means}
 
-\item{std_matrix}{Matrix consisting of means}
+\item{std_matrix}{Matrix consisting of standard deviations}
+}
+\value{
+Matrix (of strings) that consists of the mean values with corresponding standard deviations in brackets
 }
 \description{
 Concatenate mean and std to one frame

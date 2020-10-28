@@ -1,7 +1,7 @@
 ---
 title: "Simulation Study - thAV"
 author: "Anonymous"
-date: "19 02 2020"
+date: "22 10 2020"
 output: html_document
 ---
 
@@ -13,15 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 #1. Import & Definition of Functions
 ```{r}
 require("devtools") # to install thav.glasso
-library("devtools")
 install("../../thav.glasso") # contains the estimator and simulation methods
-require("thav.glasso")
-require("MASS") # to sample from multivariate normal
-require("igraph") # to generate graphs
-require("stargazer") # to produce latex outputs
-require("huge") # contains adjacency matrix generation and StARS + RIC estimation
-require("matrixcalc") # to compute eigenvalues
-require("glasso") # to compute the graphical lasso
+library(thav.glasso)
+load_libraries() # loads all required libraries
 
 # graph design
 igraph_options(vertex.size       =2,
@@ -31,72 +25,151 @@ igraph_options(vertex.size       =2,
                vertex.color      ="black",
                vertex.frame.color=NA,
                edge.color        ="coral1")
+
+restart_R <- function()
+{
+  rm(list = ls())
+  .rs.restartR()
+}
 ```
 
 #2. Compare several methods in $F_1$-score
-In this simulation study we want to investigate the performance of the thAV in comparison to 
+In this experiment investigate the performance of the thAV in comparison to 
   1. the oracle graphical lasso estimator that uses the regularization parameter that maximizes the $F_1$-score,
   2. the StARS estimator,
-  3. the RIC estimator.
-
+  3. the scaled lasso estimator,
+  4. the TIGER estimator,
+  5. the rSME estimator (tuned via eBIC),
+  6. the SCIO estimatior tuned via 
+    6.1 CV;
+    6.2 a bregman criterion.
+    
+Note, that we split many computations into several parts due to limited computational ressources.
 ## 2.1. Results from the Main Paper
 ```{r}
-# F_1-score
-set.seed(182)
-comparisonf1( 300, 200, latex=TRUE, graph="random")
-set.seed(182)
-comparisonf1(300, 200, latex=TRUE, graph="scale-free")
+####################
+### random graph ###
+####################
+set.seed(43)
+simu_f1_split(300, 200, 1)
+set.seed(99)
+simu_f1_split(300, 200, 2)
+set.seed(900)
+simu_f1_split(300, 200, 3, num_reps=5)
+simu_f1(300, 200)
 
-set.seed(123)
-comparisonf1( 200, 300, latex=TRUE, graph="random")
-set.seed(123)
-comparisonf1(200, 300, latex=TRUE, graph="scale-free")
-
-set.seed(312)
-comparisonf1( 400, 200, latex=TRUE, graph="random")
-set.seed(312)
-comparisonf1(400, 200, latex=TRUE, graph="scale-free")
-
-
-set.seed(13)
-comparisonf1( 300, 200, graph="scale-free", lambda=2, latex=TRUE)
-set.seed(233)
-comparisonf1( 300, 400, graph="scale-free", lambda = 2, latex=TRUE)
-set.seed(234)
-comparisonf1( 400, 200, graph="scale-free", lambda = 2, latex=TRUE)
-
-# compare recovered graphs
-set.seed(121)
-graph_comparison(300, 200)
+set.seed(5)
+simu_f1_split(200, 300, 1)
+set.seed(9)
+simu_f1_split(200, 300, 2)
+set.seed(93)
+simu_f1_split(200, 300, 3, num_reps=5) 
+simu_f1(200, 300)
 
 
-# thav using lambda=2 for a random graph:
-set.seed(84)
-simulation_thavf1(n_seq=c(300, 200, 400), d_seq=c(200, 300, 200), graph="random", lambda=2, latex=TRUE)
-set.seed(30)
-simulation_thavf1(n_seq=c(300, 200, 300), d_seq=c(100, 200, 300), graph="random", lambda=2, latex=TRUE)
+set.seed(309)
+simu_f1_split(400, 200, 1)
+set.seed(43)
+simu_f1_split(400, 200, 2)
+set.seed(32)
+simu_f1_split(400, 200, 3, num_reps=5)
+simu_f1(400, 200)
+
+
+########################
+### scale-free graph ###
+########################
+set.seed(400)
+simu_f1_split(300, 200, 1, graph="scale-free")
+set.seed(81)
+simu_f1_split(300, 200, 2, graph="scale-free")
+set.seed(3)
+simu_f1_split(300, 200, 3, num_reps=5, graph="scale-free")
+simu_f1(300, 200, "scale-free", 3)
+
+set.seed(34)
+simu_f1_split(200, 300, 1, graph="scale-free")
+set.seed(2)
+simu_f1_split(200, 300, 2, graph="scale-free")
+set.seed(9)
+simu_f1_split(200, 300, 3, num_reps=5, graph="scale-free")
+simu_f1(200, 300, "scale-free", 3)
+
+
+set.seed(9)
+simu_f1_split(400, 200, 1, graph="scale-free")
+set.seed(481)
+simu_f1_split(400, 200, 2, graph="scale-free")
+set.seed(16)
+simu_f1_split(400, 200, 3, num_reps=5, graph="scale-free")
+simu_f1(400, 200, "scale-free", 3)
 ```
 
 
 ##2.2. Results from the Supplement
+More settings from the Supplement...
 ```{r}
-# compute F_1-score
+####################
+### random graph ###
+####################
+set.seed(3)
+simu_f1_split(300, 100, 1)
+set.seed(50)
+simu_f1_split(300, 100, 2)
+set.seed(80)
+simu_f1_split(300, 100, 3, num_reps=5)
+simu_f1(300, 100, num_parts=3)
+
+set.seed(66)
+simu_f1_split(200, 200, 1)
+set.seed(691)
+simu_f1_split(200, 200, 2) 
+set.seed(81)
+simu_f1_split(200, 200, 3, num_reps=5)
+simu_f1(200, 200) 
+
+set.seed(24)
+simu_f1_split(300, 300, 1)
+set.seed(2)
+simu_f1_split(300, 300, 2)
+set.seed(90)
+simu_f1_split(300, 300, 3, num_reps=5)
+simu_f1(300, 300)
+
+
+########################
+### scale-free graph ###
+########################
+set.seed(4)
+simu_f1_split(300, 100, 1, graph="scale-free")
+set.seed(11)
+simu_f1_split(300, 100, 2, graph="scale-free")
+set.seed(77)
+simu_f1_split(300, 100, 3, num_reps=5, graph="scale-free")
+simu_f1(300, 100, graph="scale-free")
+
+  set.seed(12)
+simu_f1_split(200, 200, 1, graph="scale-free")
+set.seed(62)
+simu_f1_split(200, 200, 2, graph="scale-free")
 set.seed(93)
-comparisonf1(300, 100, latex=TRUE, graph="random")
-set.seed(93)
-comparisonf1(300, 100, latex=TRUE, graph="scale-free")
+simu_f1_split(200, 200, 3, graph="scale-free", num_reps=5)
+simu_f1(200, 200, graph="scale-free")
 
-set.seed(19)
-comparisonf1(200, 200, latex=TRUE, graph="random")
-set.seed(19)
-comparisonf1(200, 200, latex=TRUE, graph="scale-free")
+  set.seed(15)
+  simu_f1_split(300, 300, 1, graph="scale-free")
+  set.seed(83)
+  simu_f1_split(300, 300, 2, graph="scale-free")
+set.seed(55)
+simu_f1_split(300, 300, 3, graph="scale-free", num_reps=5)
+simu_f1(300, 300, graph="scale-free")
+```
 
-set.seed(32)
-comparisonf1(300, 300, latex=TRUE, graph="random")
-set.seed(32)
-comparisonf1(300, 300, latex=TRUE, graph="scale-free")
 
-# compare recovered graphs
+The following chunk of code computes visualizations of recovered graphs in each setting with each method.
+```{r}
+set.seed(43)
+graph_comparison(300, 200)
 set.seed(59)
 graph_comparison(200, 300)
 set.seed(65)
@@ -104,88 +177,94 @@ graph_comparison(400, 200)
 
 set.seed(14)
 graph_comparison(300, 200, "scale-free")
-set.seed(43)
+set.seed(82)
 graph_comparison(200, 300, "scale-free")
 set.seed(65)
 graph_comparison(400, 200, "scale-free")
 ```
 
+
 #3. Recovery of significant edges
-We want to investigate if thAV recovers the $50$ most significant edges.
+Next, we investigate if thAV recovers the 20% of the most significant edges, that is, the 20% of edges (i,j) with largest absolute value $\vert \Theta_{ij}\vert$.
 
 ##3.1. Exemplary runs of thAV
-First, we compare the most significant edge ($\operatorname{top}_1$), the $50$th most significant edge ($\operatorname{top}_{50}$), $6C\hat{r}$ and the percentage of recovered top $50$ edges for several settings.
-###3.1.1 Results from the Main Paper
+First, we compare the most significant edge ($\operatorname{top}_1$), the $20\%$ of the most significant edges, $4C\hat{r}$ and the percentage of recovered top $20\%$ edges for several settings.
+
 ```{r}
-set.seed(19)
+set.seed(45)
 thav_topvalues(n_seq=c(300, 200, 400), d_seq=c(200, 300, 200))
 set.seed(32)
 thav_topvalues(c(300, 200, 400), c(200, 300, 200), graph="scale-free")
 ```
 
-###3.1.2 Results from the Supplement
-```{r}
-set.seed(21)
-thav_topvalues(n_seq=c(300, 200, 300), d_seq=c(100, 200, 300))
-set.seed(78)
-thav_topvalues(n_seq=c(300, 200, 300), d_seq=c(100, 200, 300), graph="scale-free")
-```
-
 ##3.2. Compare top-edges recovery performance
-Next, we extend the analysis by a thoroughly simulation study that compares the recovery of top $50$ edges of the thAV with the StARS and RIC in several settings.
-###3.2.1. Results from the Main Paper
+Next, we extend the analysis by a thoroughly simulation study that compares the recovery the $20\%$ of the most significant edges by the thAV with the competing methods in several settings.
 ```{r}
-set.seed(33)
-recovery_topvalues(n_seq=300, d_seq=200, num_reps=50, latex=TRUE)
-set.seed(23)
-recovery_topvalues(n_seq=200, d_seq=300, num_reps=50, latex=TRUE)
-set.seed(22)
-recovery_topvalues(n_seq=400, d_seq=200, num_reps=50, latex=TRUE)
+####################
+### random graph ###
+####################
+set.seed(32)
+recovery_topvalues_split(300, 200, num_reps=15, part=1, graph="random")
+set.seed(38)
+recovery_topvalues_split(300, 200, num_reps=10, part=2, graph="random")
 
 set.seed(32)
-recovery_topvalues(n_seq=300, d_seq=200, num_reps=50, latex=TRUE, graph="scale-free")
-set.seed(49)
-recovery_topvalues(n_seq=200, d_seq=300, num_reps=50, latex=TRUE, graph="scale-free")
-set.seed(43)
-recovery_topvalues(n_seq=400, d_seq=200, num_reps=50, latex=TRUE, graph="scale-free")
-```
-
-###3.2.2. Results from the Supplement
-```{r}
+recovery_topvalues_split(200, 300, num_reps=10, part=1, graph="random")
+set.seed(38)
+recovery_topvalues_split(200, 300, num_reps=10, part=2, graph="random")
 set.seed(99)
-recovery_topvalues(n_seq=300, d_seq=100, latex=TRUE)
-set.seed(63)
-recovery_topvalues(n_seq=200, d_seq=200, latex=TRUE)
-set.seed(73)
-recovery_topvalues(n_seq=300, d_seq=300, latex=TRUE)
+recovery_topvalues_split(200, 300, num_reps=5, part=3, graph="random")
 
-set.seed(123)
-recovery_topvalues(n_seq=300, d_seq=100, latex=TRUE, graph="scale-free")
-set.seed(30)
-recovery_topvalues(n_seq=200, d_seq=200, latex=TRUE, graph="scale-free")
-set.seed(20)
-recovery_topvalues(n_seq=300, d_seq=300, latex=TRUE, graph="scale-free")
+set.seed(32)
+recovery_topvalues_split(400, 200, num_reps=15, part=1, graph="random")
+set.seed(38)
+recovery_topvalues_split(400, 200, num_reps=10, part=2, graph="random")
+
+recovery_topvalues(c(300, 200, 400), c(200, 300, 200))
+
+
+########################
+### scale-free graph ###
+########################
+set.seed(42)
+recovery_topvalues_split(300, 200, num_reps=15, part=1, graph="scale-free")
+set.seed(31)
+recovery_topvalues_split(300, 200, num_reps=10, part=2, graph="scale-free")
+
+set.seed(29)
+recovery_topvalues_split(200, 300, num_reps=10, part=1, graph="scale-free")
+set.seed(9)
+recovery_topvalues_split(200, 300, num_reps=10, part=2, graph="scale-free")
+set.seed(83)
+recovery_topvalues_split(200, 300, num_reps=5, part=3, graph="scale-free")
+
+set.seed(32)
+recovery_topvalues_split(400, 200, num_reps=15, part=1, graph="scale-free")
+set.seed(47)
+recovery_topvalues_split(400, 200, num_reps=10, part=2, graph="scale-free")
+
+recovery_topvalues(c(300, 200, 400), c(200, 300, 200), graph="scale-free")
 ```
-
 
 #4. Dependence on $C$
-In this study, we want to show that the thAV reacts insensitive on the specific choice of $C$.
+In this study, we show that the thAV estimator remains stable in the choice of $C$.
 
 ##4.1. F_1-Matrix 
-In particular, we generate a "$F_1$-matrix whose entries $F_{i,j}$ correspond to the $F_1$-score of the thAV based on $C_i$ and the thAV based on $C_j$, where $(C_1,...,C_s)$ is a sequence of different $C>0$.
+In particular, we generate a ``$F_1$-matrix'' whose entries $F_{i,j}$ correspond to the $F_1$-score of the thAV based on $C_i$ and the thAV based on $C_j$, where $(C_1,...,C_s)$ is a sequence of different $C>0$.
 
+We consider $C\in \{0.5, 0.6, 0.7, 0.8\}$.
 ###4.1.1. Results from the Main Paper
 ```{r}
 set.seed(145)
-comparison_similarity( 300, 200, latex=TRUE)
+comparison_similarity( 300, 200, latex=TRUE, seq_C=c(0.5, 0.6, 0.7, 0.8), num_reps=25)
 ```
 
 ###4.1.2. Results from the Supplement
 ```{r}
 set.seed(203)
-comparison_similarity( 200, 300, latex=TRUE)
+comparison_similarity( 200, 300, latex=TRUE, seq_C=c(0.5, 0.6, 0.7, 0.8), num_reps=25)
 set.seed(11)
-comparison_similarity( 400, 200, latex=TRUE)
+comparison_similarity( 400, 200, latex=TRUE, seq_C=c(0.5, 0.6, 0.7, 0.8), num_reps=25)
 ```
 
 
@@ -201,107 +280,104 @@ comparison_similarity(400, 200, latex=TRUE, graph="scale-free")
 
 
 ##4.2. Visualization of the graphs based on different C
-This code visualizes the different thAV estimations for different choices of $C$.
-(Does not occure in the Main paper or the Supplement)
+These lines of code visualize the resulting thAV estimations for different choices of $C$.
 ```{r}
-set.seed(27)
+set.seed(40)
 visualization_differentC(300, 200)
-set.seed(23)
-visualization_differentC(200, 200)
-set.seed(267)
+visualization_differentC(200, 300)
 visualization_differentC(400, 200)
-set.seed(43)
-visualization_differentC(1000, 200)
+
+set.seed(47)
+visualization_differentC(300, 200, graph="scale-free")
+visualization_differentC(200, 300, graph="scale-free")
+visualization_differentC(400, 200, graph="scale-free")
 ```
 
 
 ##4.3. Adaptation of the Threshold
-Further, we show that the proposed threshold, $t:=3C\hat{r}$ adapts on the chosen $C$ in thAV. This code provides the data, whereas the plots are generated by adaptation_threshold.ipynb.
+Further, we show that the proposed threshold, $t:=C\hat{r}$ adapts on the chosen $C$. This code provides the data, whereas the plots are generated in adaptation_threshold.ipynb.
+
 ###4.3.1. Results from the Main Paper
 ```{r}
-set.seed(142)
+set.seed(121)
 adaptation_threshold(300, 200)
-set.seed(23)
-adaptation_threshold(300, 200, C=0.2)
-set.seed(54)
-adaptation_threshold(300, 200, C=0.4)
 ```
+
 
 ###4.3.2. Results from the Supplement
 ```{r}
-set.seed(142)
+set.seed(102)
 adaptation_threshold(300, 200, graph="scale-free")
-set.seed(23)
-adaptation_threshold(300, 200, C=0.2, graph="scale-free")
-set.seed(54)
-adaptation_threshold(300, 200, C=0.4, graph="scale-free")
 
-
-set.seed(100)
-adaptation_threshold(200, 300, C=0.3)
-set.seed(29)
-adaptation_threshold(200, 300, C=0.2)
-set.seed(42)
-adaptation_threshold(200, 300, C=0.4)
-set.seed(100)
-adaptation_threshold(200, 300, C=0.3, graph="scale-free")
-set.seed(29)
-adaptation_threshold(200, 300, C=0.2, graph="scale-free")
-set.seed(42)
-adaptation_threshold(200, 300, C=0.4, graph="scale-free")
-
-set.seed(234)
-adaptation_threshold(400, 200, C=0.3)
-set.seed(7)
-adaptation_threshold(400, 200, C=0.2)
-set.seed(33)
-adaptation_threshold(400, 200, C=0.4)
-set.seed(234)
-adaptation_threshold(400, 200, C=0.3, graph="scale-free")
-set.seed(7)
-adaptation_threshold(400, 200, C=0.2, graph="scale-free")
-set.seed(33)
-adaptation_threshold(400, 200, C=0.4, graph="scale-free")
+adaptation_threshold(400, 200)
+adaptation_threshold(400, 200, graph="scale-free")
+  
+adaptation_threshold(200, 300)
+adaptation_threshold(200, 300, graph="scale-free")
 ```
 
-
-#4. Stability in the Graphs Density
-Furthermore, we show that thAV estimation remains, independently of the graphs density, superior over StARS and RIC.
-We do this by comparing the resulting $F_1$-score for several settings and graph densities.
-
-##4.1. Results from the Supplement
+Can we expect a similar behaviour of the thresholded approach for the unregularized (maximum likelihood) estimator? The answer is no. These lines of code generate the data to generate similar plots in adaptation_threshold.ipynb.
 ```{r}
-d <- 200
-#seq_density <- c(2/d, 3/d, 4/d)
-set.seed(142)
-comparison_density( 300, d, 2/d, latex=TRUE)
-set.seed(142)
-comparison_density( 300, d, 3/d, latex=TRUE)
-set.seed(142)
-comparison_density( 300, d, 4/d, latex=TRUE)
+#####################################################
+### Thresholded MLE (unregularized optimization): ###
+#####################################################
+set.seed(42)
+unregularized_threshold(300, 200)
+unregularized_threshold(400, 200)
 
-d <- 300
-set.seed(33)
-comparison_density( 200, d, 2/d, latex=TRUE)
-set.seed(19)
-comparison_density(200, d, 3/d, latex=TRUE)
-set.seed(21)
-comparison_density(200, d, 4/d, latex=TRUE)
-
-d <- 200
-set.seed(33)
-comparison_density( 400, d, 2/d, latex=TRUE)
-set.seed(19)
-comparison_density(400, d, 3/d, latex=TRUE)
-set.seed(21)
-comparison_density(400, d, 4/d, latex=TRUE)
+unregularized_threshold(300, 200, graph="scale-free")
+unregularized_threshold(400, 200, graph="scale-free")
 ```
 
 
-#5. Large-scale Performance of thAV
+#5. Stability in the Graphs Density
+Furthermore, we show that thAV estimation remains, independently of the graphs density, superior to the other methods in terms of $F_1$-score. Hence, the calibration scheme is indeed adaptive, not only to the specific setting of $n, d$, but also to the targets density.
+
+##5.1. Results from the Supplement
+```{r}
+set.seed(7)
+comparison_density_split(300, 200, c(2/200, 4/200), part=1, num_reps=5)
+set.seed(30)
+comparison_density_split(300, 200, c(2/200, 4/200), part=2, num_reps=5)
+set.seed(10)
+comparison_density_split(300, 200, c(2/200, 4/200), part=3, num_reps=5)
+set.seed(371)
+comparison_density_split(300, 200, c(2/200, 4/200), part=4, num_reps=5)
+set.seed(67)
+comparison_density_split(300, 200, c(2/200, 4/200), part=5, num_reps=5)
+comparison_density(300, 200, c(2/200, 4/200), num_parts=5, graph="random")
+  
+set.seed(4)
+comparison_density_split(200, 300, c(2/300, 4/300), part=1, num_reps=5)
+set.seed(3)
+comparison_density_split(200, 300, c(2/300, 4/300), part=2, num_reps=5)
+set.seed(54)
+comparison_density_split(200, 300, c(2/300, 4/300), part=3, num_reps=5)
+set.seed(34)
+comparison_density_split(200, 300, c(2/300, 4/300), part=4, num_reps=5)
+set.seed(21)
+comparison_density_split(200, 300, c(2/300, 4/300), part=5, num_reps=5)
+comparison_density(200, 300, c(2/300, 4/300), num_parts=5, graph="random")
+
+
+set.seed(50)
+comparison_density_split(400, 200, c(2/200, 4/200), part=1, num_reps=5)
+set.seed(39)
+comparison_density_split(400, 200, c(2/200, 4/200), part=2, num_reps=5)
+  set.seed(871)
+  comparison_density_split(400, 200, c(2/200, 4/200), part=3, num_reps=5)
+set.seed(600)
+comparison_density_split(400, 200, c(2/200, 4/200), part=4, num_reps=5)
+set.seed(511)
+comparison_density_split(400, 200, c(2/200, 4/200), part=5, num_reps=5)
+comparison_density(400, 200, c(2/200, 4/200), num_parts=5, graph="random")
+```
+
+
+#6. Large-scale Performance of thAV
 The thAV is computational efficent and we can readily apply it for larger problems (increase of the dimensionality). 
 In particular, we consider $n=500$ and $d\in \{600, 700, ...,1000\}$ and the corresponding $F_1$-score of the thAV.
-##5.1. Results from the Supplement
+##6.1. Results from the Supplement
 ```{r}
 set.seed(172)
 performance_thav(600, num_reps=20)
@@ -330,10 +406,48 @@ performance_thav(1000, num_reps=20, graph="scale-free")
 ```
 
 
-#6. Distribution of the absolute values of $\Theta$
-A major drawback of the graph generation methods is the difference in the absolute value of precision matrix entries between random and scale-free graphs.
-Here, we generate the data that will be used by visualization_weights.ipynb to plot the histograms of the absolute values of the precision matrix entries.
-#6.1. Generation of the .csv-files 
+#7. Applying the thAV-technique for other estimation methods
+In Section 1.1 of the Supplement, we introduced a very general theory. In these experiments, we apply the general framework onto 2 other estimation methods for Gaussian graphical models.
+
+##7.1 thAV on rSME
+```{r}
+set.seed(76)
+simu_thav_others(300, 200, estimator="av_rsme", C=2, lambda=1, num_reps=25, graph="random")
+set.seed(54)
+simu_thav_others(200, 300, estimator="av_rsme", C=2, lambda=1, num_reps=25, graph="random")
+set.seed(40)
+simu_thav_others(400, 200, estimator="av_rsme", C=2, lambda=1, num_reps=25, graph="random")
+
+set.seed(944)
+simu_thav_others(300, 200, estimator="av_rsme", C=2, lambda=1, num_reps=25, graph="scale-free")
+set.seed(11)
+simu_thav_others(200, 300, estimator="av_rsme", C=2, lambda=1, num_reps=25, graph="scale-free")
+set.seed(83)
+simu_thav_others(400, 200, estimator="av_rsme", C=2, lambda=1, num_reps=25, graph="scale-free")
+```
+
+##7.2 thAV on sf-glasso
+```{r}
+set.seed(3)
+simu_thav_others(300, 200, estimator="av_sf", C=1.5, lambda=1.5, num_reps=25, graph="random")
+set.seed(66)
+simu_thav_others(200, 300, estimator="av_sf", C=1.5, lambda=1.5, num_reps=25, graph="random")
+set.seed(20)
+simu_thav_others(400, 200, estimator="av_sf", C=1.5, lambda=1.5, num_reps=25, graph="random")
+
+set.seed(48)
+simu_thav_others(300, 200, estimator="av_sf", C=1.5, lambda=1.5, num_reps=25, graph="scale-free")
+set.seed(77)
+simu_thav_others(200, 300, estimator="av_sf", C=1.5, lambda=1.5, num_reps=25, graph="scale-free")
+set.seed(100)
+simu_thav_others(400, 200, estimator="av_sf", C=1.5, lambda=1.5, num_reps=25, graph="scale-free")
+```
+
+
+#8. Distribution of the absolute values of $\Theta$
+A major drawback of the graph generation methods that we employ is that the absolute values distribution of the precision matrix entries varies between random and scale-free graphs.  
+Here, we generate the data that will be used by the ``visualization_weights.ipynb'' script to plot the histograms of the absolute values of the precision matrix entries.
+## 8.1. Results from the Supplement
 ```{r}
 set.seed(32)
 weight_dist( 200, num_reps=50)
@@ -350,5 +464,3 @@ weight_dist(500, num_reps=50)
 set.seed(39)
 weight_dist(500, num_reps=50, graph="scale-free")
 ```
-
-#6.2. Run .ipynb-script

@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.r
 \name{infloss}
 \alias{infloss}
-\title{Compute the infloss on the off-diagonals of two matrices}
+\title{Computes the infloss on the off-diagonals of two matrices}
 \usage{
 infloss(A, B)
 }
@@ -15,5 +15,5 @@ infloss(A, B)
 Maximal off-diagonal difference between A and B
 }
 \description{
-Compute the infloss on the off-diagonals of two matrices
+Computes the infloss on the off-diagonals of two matrices
 }

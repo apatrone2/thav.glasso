@@ -1,0 +1,21 @@
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Mo, Okt 05, 2020 - 16:26:28
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} ccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & 0.01 & 0.02 \\ 
+\hline \\[-1.8ex] 
+StARS & 0.61 (0.16) & 0.61 (0.12) \\ 
+scaled lasso & 0.6 (0.03) & 0.74 (0.02) \\ 
+TIGER & 0.38 (0.07) & 0.52 (0.06) \\ 
+score (eBIC) & 0.55 (0.22) & 0.54 (0.14) \\ 
+SCIO (CV) & 0.21 (0.39) & 0.35 (0.44) \\ 
+SCIO (Bregman) & 0.14 (0.2) & 0.15 (0.01) \\ 
+thAV & 0.94 (0.04) & 0.93 (0.03) \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
