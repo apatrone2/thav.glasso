@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 # thav
 Thresholded Adaptive Validation: Tuning the Graphical Lasso for Graph Recovery
-=======
-# Thresholded Adaptive Validation: Tuning the Graphical Lasso for Graph Recovery
->>>>>>> Version End2020
 
 This repository provides the implementations and simulations described in the paper Thresholded Adaptive Validation: Tuning the Graphical Lasso for Graph Recovery by Mike Laszkiewicz, Asja Fischer, and Johannes Lederer.
 
@@ -27,11 +23,7 @@ devtools::install_github('MikeLasz/thav.glasso')
 ```
 ## Load thav.glasso and requirements
 ```R
-<<<<<<< HEAD
 lapply(c("thav.glasso", "MASS", "igraph", "stargazer", "huge", "matrixcalc", "glasso"), library, character.only=TRUE)
-=======
-library("thav.glasso", "MASS", "igraph", "stargazer", "huge", "matrixcalc", "glasso")
->>>>>>> Version End2020
 ```
 
 # Usage
@@ -62,11 +54,7 @@ plot.igraph(network, layout=layout)
 ## Apply the AV and thAV
 ```R
 # generate Data
-<<<<<<< HEAD
 data <- scale(mvrnorm(300, mu=rep(0, 200), Sigma=solve(theta)))
-=======
-data <- mvrnorm(300, mu=rep(0, 200), Sigma=solve(theta))
->>>>>>> Version End2020
 
 # calculate the AV
 av <- av_glasso(data)
@@ -90,8 +78,4 @@ The implementation of the simulations can be found in `R/def_simulations.R`
 The file `simulations/simulation_study.Rmd` provides the code for the execution of the simulations. 
 
 The files `simulations/adaptation_threshold.ipynb` , `simulations/visualization_weights.ipynb` , and `example_graphs.R` generate plots and graphs, which were used in the mentioned Paper and can be found in the directory `plots/`.
-<<<<<<< HEAD
-=======
 
-The scipts `applications/amgut.R` and `applications/ribo.R` produce the results from Section 4.
->>>>>>> Version End2020
