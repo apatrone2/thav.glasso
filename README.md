@@ -7,24 +7,27 @@ This repository provides the implementations and simulations described in the pa
 
 ## Installation 
 ```R
-# install.packages("devtools")
-# library("devtools")
+ install.packages("devtools")
+ library("devtools")
 devtools::install_github('MikeLasz/thav.glasso')
-## Further requirements:
-# install.packages("MASS") # to sample from multivariate normal
-# install.packages("igraph") # to generate graphs
-# install.packages("stargazer") # to produce latex outputs
-# intsall.packages("huge") # contains adjacency matrix generation and StARS + RIC estimation
-# install.packages("matrixcalc") # to compute eigenvalues
-# install.packages("glasso") # to compute the graphical lasso
-# install.packages("scalreg") # to compute the scaled lasso
+# Further requirements:
+ install.packages("MASS") # to sample from multivariate normal
+ install.packages("igraph") # to generate graphs
+ install.packages("stargazer") # to produce latex outputs
+ intsall.packages("huge") # contains adjacency matrix generation and StARS + RIC + TIGER estimation
+ install.packages("matrixcalc") # to compute eigenvalues
+ install.packages("glasso") # to compute the graphical lasso
+ install.packages("scalreg") # to compute the scaled lasso
+ install.packages("genscore") # to compute the regularized score matching estimator
+ install.packages("scio") # to compute the SCIO estimator
+# Note that scio is not supported on CRAN anymore. Hence, it might be necessary to install both "QUIC", which is a dependency of "scio" and "scio" manually.
 
-## or simply
-# install.packages(c("MASS", "igraph", "stargazer", "huge", "matrixcalc", "glasso", "scalreg"))
+# or simply
+ install.packages(c("MASS", "igraph", "stargazer", "huge", "matrixcalc", "glasso", "scalreg", "genscore", "scio"))
 ```
 ## Load thav.glasso and requirements
 ```R
-lapply(c("thav.glasso", "MASS", "igraph", "stargazer", "huge", "matrixcalc", "glasso"), library, character.only=TRUE)
+load_libraries()
 ```
 
 # Usage

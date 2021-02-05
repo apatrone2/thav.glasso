@@ -1,9 +1,9 @@
-#' Loads the necessary libraries, which are: huge, MASS, thav.glasso, scalreg, igraph, matrixcalc, genscore, scio, highscore, stargazer, glasso
+#' Loads the necessary libraries, which are: huge, MASS, thav.glasso, scalreg, igraph, matrixcalc, genscore, scio, stargazer, glasso
 #'
 #' @export
 load_libraries <- function()
 {
-  libraries <- c("huge", "MASS", "thav.glasso", "scalreg", "igraph", "matrixcalc", "genscore", "scio", "highscore", "stargazer", "glasso")
+  libraries <- c("huge", "MASS", "thav.glasso", "scalreg", "igraph", "matrixcalc", "genscore", "scio", "stargazer", "glasso")
   lapply(libraries, library, character.only=TRUE)
 }
 

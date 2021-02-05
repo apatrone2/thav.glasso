@@ -2,10 +2,10 @@
 % Please edit documentation in R/av_estimation.r
 \name{load_libraries}
 \alias{load_libraries}
-\title{Loads the necessary libraries, which are: huge, MASS, thav.glasso, scalreg, igraph, matrixcalc, genscore, scio, highscore, stargazer, glasso}
+\title{Loads the necessary libraries, which are: huge, MASS, thav.glasso, scalreg, igraph, matrixcalc, genscore, scio, stargazer, glasso}
 \usage{
 load_libraries()
 }
 \description{
-Loads the necessary libraries, which are: huge, MASS, thav.glasso, scalreg, igraph, matrixcalc, genscore, scio, highscore, stargazer, glasso
+Loads the necessary libraries, which are: huge, MASS, thav.glasso, scalreg, igraph, matrixcalc, genscore, scio, stargazer, glasso
 }
