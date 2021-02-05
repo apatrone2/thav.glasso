@@ -17,9 +17,10 @@ devtools::install_github('MikeLasz/thav.glasso')
 # intsall.packages("huge") # contains adjacency matrix generation and StARS + RIC estimation
 # install.packages("matrixcalc") # to compute eigenvalues
 # install.packages("glasso") # to compute the graphical lasso
+# install.packages("scalreg") # to compute the scaled lasso
 
 ## or simply
-# install.packages(c("MASS", "igraph", "stargazer", "huge", "matrixcalc", "glasso"))
+# install.packages(c("MASS", "igraph", "stargazer", "huge", "matrixcalc", "glasso", "scalreg"))
 ```
 ## Load thav.glasso and requirements
 ```R
