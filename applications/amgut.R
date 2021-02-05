@@ -1,7 +1,8 @@
 library(devtools)
 devtools::install_github("zdk123/SpiecEasi")
 library("SpiecEasi")
-require("phyloseq")
+install_github("joey711/phyloseq")
+library("phyloseq")
 install("../../thav.glasso")
 require("thav.glasso")
 load_libraries()
@@ -32,14 +33,20 @@ ig.thav2 <- adj2igraph( adj_thav2, vertex.attr=list(name=taxa_names(amgut2.filt.
 plot_network(ig.thav2, amgut2.filt.phy, type="taxa", color="Rank4")
 
 # delete isolated vertices
-png("../plots/amgut_thAV.png", width=1900, height=1600, res=200) # saves the plot
+pdf("../plots/amgut_thAV.pdf")#, width=1900, height=1600) # saves the plot
 par(mar=c(0, 0, 0, 0))
-plot_network( delete.vertices(ig.thav, degree(ig.thav)==0), amgut2.filt.phy, type="taxa", color="Rank4", label=NULL, shape="Rank4") + theme(legend.position="bottom",legend.text=element_text(size=15), legend.title = element_text(size=15)) 
+plot_network( delete.vertices(ig.thav, degree(ig.thav)==0), amgut2.filt.phy, type="taxa", color="Rank4", label=NULL, shape="Rank4") + 
+  theme(legend.position="bottom", legend.text = element_text(size=10), legend.title = element_text(size=10)) + 
+  guides(color = guide_legend(nrow=2, byrow=TRUE))
 dev.off()
 
-png("../plots/amgut_thAV2.png", width=1900, height=1600, res=200)
+pdf("../plots/amgut_thAV2.pdf", width=10, height=8)#, width=1900, height=1600, res=200)
 par(mar=c(0, 0, 0 ,0))
-plot_network( delete.vertices(ig.thav2, degree(ig.thav2)==0), amgut2.filt.phy, type="taxa", color="Rank4", label=NULL, shape="Rank4") + theme(legend.position="bottom",legend.text=element_text(size=19), legend.title = element_text(size=19)) 
+#plot_network( delete.vertices(ig.thav2, degree(ig.thav2)==0), amgut2.filt.phy, type="taxa", color="Rank4", label=NULL, shape="Rank4") + theme(legend.position="bottom",legend.text=element_text(size=19), legend.title = element_text(size=19)) 
+plot_network( delete.vertices(ig.thav2, degree(ig.thav2)==0), amgut2.filt.phy, type="taxa", color="Rank4", label=NULL, shape="Rank4") + 
+  theme(legend.position="bottom", legend.text = element_text(size=19), legend.title = element_blank()) + 
+  guides(color = guide_legend(nrow=2, byrow=TRUE))
+
 dev.off() 
 # Note, we do not depict the shapes in the following plot because the ``plot_network'' function offers only 6 different shapes.
 # However, the spieceasi estimator recovers edges between nodes of more than 6 classes.

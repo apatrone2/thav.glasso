@@ -30,7 +30,7 @@ thav <- thAV.estimator(genes.scaled, mute=FALSE)
   
 network.thAV <- graph.adjacency( thav, mode="undirected", weighted=TRUE, diag=FALSE)
 network.layout <- layout.graphopt( network.thAV)
-png("../plots/ribo_thAV.png", width=1900, height=1600, res=200) # saves the plot
+pdf("../plots/ribo_thAV.pdf", width=20, height=12)#, width=1900, height=1600, res=200) # saves the plot
 par(mar=c(0, 0, 0, 0))
 plot.igraph( network.thAV, layout=network.layout)
 dev.off() # saves the plot
@@ -40,7 +40,7 @@ thav2 <- thAV.estimator(genes.scaled, lambda=0.5)
 
 network.thAV2 <- graph.adjacency(thav2, mode="undirected", weighted=TRUE, diag=FALSE)
 network.layout2 <- layout.graphopt( network.thAV2)
-png("../plots/ribo_thAV2.png", width=1900, height=1600, res=200) # saves the plot
+pdf("../plots/ribo_thAV2.pdf")#, width=1900, height=1600, res=200) # saves the plot
 par(mar=c(0, 0, 0, 0))
 plot.igraph( network.thAV2, layout=network.layout2)
 dev.off()
