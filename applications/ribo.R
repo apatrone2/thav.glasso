@@ -26,7 +26,7 @@ dim( data.v100)
 
 genes.scaled <- huge.npn( data.v100)
 
-thav <- thAV.estimator(genes.scaled, mute=FALSE)
+thav <- thAV.estimator(genes.scaled, C=0.7, lambda=1, mute=FALSE)
   
 network.thAV <- graph.adjacency( thav, mode="undirected", weighted=TRUE, diag=FALSE)
 network.layout <- layout.graphopt( network.thAV)
@@ -36,7 +36,7 @@ plot.igraph( network.thAV, layout=network.layout)
 dev.off() # saves the plot
 
 #lambda = 0.5
-thav2 <- thAV.estimator(genes.scaled, lambda=0.5)
+thav2 <- thAV.estimator(genes.scaled, C=0.7, lambda=0.5)
 
 network.thAV2 <- graph.adjacency(thav2, mode="undirected", weighted=TRUE, diag=FALSE)
 network.layout2 <- layout.graphopt( network.thAV2)

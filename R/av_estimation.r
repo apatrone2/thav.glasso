@@ -52,7 +52,7 @@ av_glasso <- function(data, C=0.7)
   #calculate glasso[max(r)] and setup the warm start
   glasso <- glasso(empvar, rho=r, penalize.diagonal=FALSE)
   warm <- list(glasso$wi, glasso$w)
-  estimates[[length(seq_r)]] <- warm[[1]] #normalize_theta(warm[[1]])
+  estimates[[length(seq_r)]] <- normalize_theta(warm[[1]]) #warm[[1]] #
   
   counter_r <- length(seq_r) #used to fill the list estimates with corresponding estimates
   while(r > min(seq_r))
@@ -61,7 +61,7 @@ av_glasso <- function(data, C=0.7)
     counter_r <- counter_r - 1
     r <- seq_r[counter_r]
     newwarm <- glasso(empvar, rho=r, penalize.diagonal=FALSE, start="warm", wi.init=warm[[1]], w.init=warm[[2]])
-    estimates[[counter_r]] <- newwarm$wi #normalize_theta(newwarm$wi)
+    estimates[[counter_r]] <- normalize_theta(newwarm$wi) #newwarm$wi #
     #warm <- list(normalize_theta(newwarm$wi), normalize_theta(newwarm$w))
     warm <- list(newwarm$wi, newwarm$w)
     
@@ -78,7 +78,7 @@ av_glasso <- function(data, C=0.7)
       r_dash <- seq_r[counter_r_dash]
     }
   }
-  #estimates[[1]] <- normalize_theta(glasso(empvar, rho=min(seq_r), penalize.diagonal=FALSE, start="warm", wi.init=warm[[1]], w.init=warm[[2]])$wi)
+  estimates[[1]] <- normalize_theta(glasso(empvar, rho=min(seq_r), penalize.diagonal=FALSE, start="warm", wi.init=warm[[1]], w.init=warm[[2]])$wi)
   return(list(TuningParameter=seq_r[1], Thetahat=estimates[[1]])) 
 }
 
@@ -166,24 +166,29 @@ score_ebic <- function(data, gamma=1)
 #' @return The selected regularization parameter
 #' @return The resulting AV regularized score matching estimator rSME (AV)
 #' @export
-av_rsme <- function(data, C=1.5)
+av_rsme <- function(data, C=2)
 {
   empvar <- var(data)
-  max_r <- max(abs(empvar[upper.tri(empvar)]))
-  seq_r <- seq(0.05, max_r, length.out = 40)
+  seq_r <- seq(5e-4, 0.3, length.out = 40)
   #initialization
   r <- max(seq_r)
-  estimates <- list()
   
-  estimates[[length(seq_r)]] <- normalize_theta(highscore(data, model="gaussian", lambda=r)$K)
-  
+  domain <- make_domain("R", p=dim(empvar)[1])
+  estimates <- estimate(data, "gaussian", domain, scale="sd", return_raw=TRUE, lambda1s=seq_r,
+                        verbose=FALSE, verbosetext=FALSE)$raw_estimate
+  estimates <- rev(estimates) # genscore implementation returns a list of estimates 
+                              # where the first entry corresponds to the largest TP estimate
+  # normalize each theta
+  for(j in 1:40)
+  {
+    estimates[[j]] <- normalize_theta(estimates[[j]])
+  }
   counter_r <- length(seq_r) #used to fill the list estimates with corresponding estimates
   while(r != min(seq_r))
   {
     counter_r <- counter_r - 1
     r <- seq_r[counter_r]
-    estimates[[counter_r]] <- normalize_theta(highscore(data, model="gaussian", lambda=r)$K)
-    
+
     counter_r_dash <- length(seq_r)
     r_dash <- seq_r[counter_r_dash]
     while(r_dash > r)

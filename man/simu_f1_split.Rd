@@ -5,16 +5,7 @@
 \title{Computes parts of the simulation study that compares F1-score, Precision and Recall using the oracle, StARS, scaled Lasso, TIGER, rSME using eBIC with gamma=1, rSME using eBIC with gamma=0.5, SCIO using Cross-Validation, SCIO using the bregman loss, thAV-glasso, AV-rSME, and AV-SCIO.
 We split the simulation into several parts because of memory issues.}
 \usage{
-simu_f1_split(
-  n,
-  d,
-  part,
-  num_reps = 10,
-  graph = "random",
-  C_thav = 0.7,
-  C_score = 0.7,
-  C_scio = 0.7
-)
+simu_f1_split(n, d, part, num_reps = 10, graph = "random", C_thav = 0.7)
 }
 \arguments{
 \item{n}{Number of samples}

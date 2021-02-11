@@ -20,10 +20,11 @@ devtools::install_github('MikeLasz/thav.glasso')
  install.packages("scalreg") # to compute the scaled lasso
  install.packages("genscore") # to compute the regularized score matching estimator
  install.packages("scio") # to compute the SCIO estimator
+ install.packages("ggplot2") # to modify some plots
 # Note that scio is not supported on CRAN anymore. Hence, it might be necessary to install both "QUIC", which is a dependency of "scio" and "scio" manually.
 
 # or simply
- install.packages(c("MASS", "igraph", "stargazer", "huge", "matrixcalc", "glasso", "scalreg", "genscore", "scio"))
+ install.packages(c("MASS", "igraph", "stargazer", "huge", "matrixcalc", "glasso", "scalreg", "genscore", "scio", "ggplot2"))
 ```
 ## Load thav.glasso and requirements
 ```R

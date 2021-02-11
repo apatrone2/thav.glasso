@@ -43,11 +43,11 @@ conc_matrix <- function(mean_matrix, std_matrix)
 #' @param C_scio Constant C used to tune the AV-SCIO
 #' @return Writes a .txt-file that can be read by the simu_f1 function to summarize the simulation study. 
 #' @export
-simu_f1_split <- function(n, d, part, num_reps=10, graph="random", C_thav=0.7, C_score=0.7, C_scio=0.7)
+simu_f1_split <- function(n, d, part, num_reps=10, graph="random", C_thav=0.7)
 {
-  f1 <- precision <- recall <- matrix(rep(0, num_reps*11), ncol=num_reps)
+  f1 <- precision <- recall <- matrix(rep(0, num_reps*9), ncol=num_reps)
   
-  pb <- txtProgressBar(min = 0, max = num_reps * 11, style = 3)
+  pb <- txtProgressBar(min = 0, max = num_reps * 9, style = 3)
   counter_progress <- 0
   for(j in 1:num_reps)
   {
@@ -79,19 +79,11 @@ simu_f1_split <- function(n, d, part, num_reps=10, graph="random", C_thav=0.7, C
     counter_progress <- counter_progress + 1
     setTxtProgressBar(pb, counter_progress)
     
-    score_av <- av_rsme(data, C=C_score)$Thetahat
-    counter_progress <- counter_progress + 1
-    setTxtProgressBar(pb, counter_progress)
-    
     scio_cv <- scio.cv(data)$w
     counter_progress <- counter_progress + 1
     setTxtProgressBar(pb, counter_progress)
     
     scio_bregman_est <- scio_bregman(data)
-    counter_progress <- counter_progress + 1
-    setTxtProgressBar(pb, counter_progress)
-    
-    scio_av <- av_scio(data, C=C_scio)$Thetahat
     counter_progress <- counter_progress + 1
     setTxtProgressBar(pb, counter_progress)
     
@@ -113,10 +105,8 @@ simu_f1_split <- function(n, d, part, num_reps=10, graph="random", C_thav=0.7, C
     performance_thav <- f1score(theta, thav)
     performance_score_ebic1 <- f1score(theta, score_ebic1)
     performance_score_ebic2 <- f1score(theta, score_ebic2)
-    performance_score_av <- f1score(theta, score_av)
     performance_scio_cv <- f1score(theta, scio_cv)
     performance_scio_bregman <- f1score(theta, scio_bregman_est)
-    performance_scio_av <- f1score(theta, scio_av)
     performance_stars <- f1score(theta, stars)
     performance_scaled_lasso <- f1score(theta, scaled_lasso)
     performance_tiger <- f1score(theta, tiger_est)
@@ -130,8 +120,6 @@ simu_f1_split <- function(n, d, part, num_reps=10, graph="random", C_thav=0.7, C
     f1[7, j] <- performance_scio_cv$f1 
     f1[8, j] <- performance_scio_bregman$f1
     f1[9, j] <- performance_thav$f1
-    f1[10, j] <- performance_score_av$f1
-    f1[11, j] <- performance_scio_av$f1
     
     
     precision[1, j] <- performance_oracle$precision 
@@ -143,8 +131,6 @@ simu_f1_split <- function(n, d, part, num_reps=10, graph="random", C_thav=0.7, C
     precision[7, j] <- performance_scio_cv$precision
     precision[8, j] <- performance_scio_bregman$precision
     precision[9, j] <- performance_thav$precision
-    precision[10, j] <- performance_score_av$precision
-    precision[11, j] <- performance_scio_av$precision
     
     recall[1, j] <- performance_oracle$recall 
     recall[2, j] <- performance_stars$recall
@@ -155,8 +141,6 @@ simu_f1_split <- function(n, d, part, num_reps=10, graph="random", C_thav=0.7, C
     recall[7, j] <- performance_scio_cv$recall
     recall[8, j] <- performance_scio_bregman$recall
     recall[9, j] <- performance_thav$recall
-    recall[10, j] <- performance_score_av$recall
-    recall[11, j] <- performance_scio_av$recall
   }
   
   PATH_f1 <- paste0("../data/simu_results/comparison_f1/f1n", n, "d", d , graph, part,".txt")
@@ -185,9 +169,9 @@ simu_f1 <- function(n, d, graph="random", num_parts=3)
     PATH_prec <- paste0("../data/simu_results/comparison_f1/precn", n, "d", d, graph, part, ".txt")
     PATH_recall <- paste0("../data/simu_results/comparison_f1/recalln", n, "d", d, graph, part, ".txt")
     
-    readf1_results <- as.matrix(read.csv(PATH_f1), header=TRUE)
-    readprec_results <- as.matrix(read.csv(PATH_prec), header=TRUE)
-    readrecall_results <- as.matrix(read.csv(PATH_recall), header=TRUE)
+    readf1_results <- as.matrix(read.csv(PATH_f1), header=TRUE)[1:9,]
+    readprec_results <- as.matrix(read.csv(PATH_prec), header=TRUE)[1:9, ]
+    readrecall_results <- as.matrix(read.csv(PATH_recall), header=TRUE)[1:9, ]
     
     if(part==1)
     {
@@ -203,12 +187,16 @@ simu_f1 <- function(n, d, graph="random", num_parts=3)
     }
   }
   
-  rownames(f1_results) <- rownames(prec_results) <- rownames(recall_results) <- c("oracle", "StARS", "scaled lasso", "TIGER", "score_ebic1", "score_ebic0.5", "scio_cv", "scio_bregman", "thAV", "score_AV", "scio_AV")
+  f1_results <- f1_results[, 1:9]
+  prec_results <- prec_results[, 1:9]
+  recall_results <- recall_results[, 1:9]
   
-  average_results <- matrix( rep(0, 11*3), ncol=3)
-  std_results <- matrix( rep(0, 11*3), ncol=3)
+  rownames(f1_results) <- rownames(prec_results) <- rownames(recall_results) <- c("oracle", "StARS", "scaled lasso", "TIGER", "score_ebic1", "score_ebic0.5", "scio_cv", "scio_bregman", "thAV")
+  
+  average_results <- matrix( rep(0, 9*3), ncol=3)
+  std_results <- matrix( rep(0, 9*3), ncol=3)
   colnames(average_results) <- c("F1", "Precision", "Recall")
-  rownames(average_results) <- c("oracle", "StARS", "scaled lasso", "TIGER", "score_ebic1", "score_ebic0.5", "scio_cv", "scio_bregman", "thAV", "score_AV", "scio_AV")
+  rownames(average_results) <- c("oracle", "StARS", "scaled lasso", "TIGER", "score_ebic1", "score_ebic0.5", "scio_cv", "scio_bregman", "thAV")
   
   average_results[, 1] <- apply(f1_results, 1, function(x) mean(x, na.rm=TRUE))
   average_results[, 2] <- apply(prec_results, 1, function(x) mean(x, na.rm=TRUE))
@@ -262,8 +250,8 @@ simu_av_f1 <- function(n_seq, d_seq, estimator="thav_glasso", graph="random", nu
       }
       else if(estimator=="thav_rsme")
       {
-          est <- av_rsme(data, C=1.5)
-          est_th <- threshold(est, C=1.5, lambda=1)
+          est <- av_rsme(data, C=0.5)
+          est_th <- threshold(est, C=0.5, lambda=3)
       }
       else if(estimator=="av_scio")
       {
@@ -429,7 +417,7 @@ graph_comparison <- function(n, d, type="random")
   remove(score_network)
   
   ### thav (rSME):
-  thav_rsme <- threshold(av_rsme(data, C=2), C=2, lambda=1)
+  thav_rsme <- threshold(av_rsme(data, C=0.5), C=0.5, lambda=2)
   print(paste0("f1-score thav (rSME): ", round(f1score(theta, thav_rsme)$f1, 2)))
   rsme_network <- graph.adjacency(thav_rsme, mode="undirected", weighted=TRUE, diag=FALSE)
   pdf(paste0(path_plots, "thav_rsme_graphn", n, "d", d, ".pdf"))#, width=1000, height=800, res=200)
@@ -459,7 +447,7 @@ graph_comparison <- function(n, d, type="random")
 #' @param latex If TRUE, this function returns a latex output via the stargazer package
 #' @return Matrix with average (and standard deviation) of F1-score between thAV estimates corresponding to the values in seq_C. In addition, this method also prints the average F1-score between a thAV (based on a specific C) and the true graph. The results are saved in a .txt file.
 #' @export
-comparison_similarity <- function(n, d, seq_C=c(0.4, 0.5, 0.6, 0.7, 0.8), graph="random", num_reps=25, latex=FALSE)
+comparison_similarity <- function(n, d, seq_C=c(0.5, 0.6, 0.7, 0.8), graph="random", num_reps=25, latex=FALSE)
 {
   pb <- txtProgressBar(min = 0, max = length(seq_C) * (length(seq_C) - 1) / 2 + num_reps, style = 3)
   dif_f1 <- matrix(rep(0, length(seq_C)^2 + length(seq_C)), ncol=length(seq_C))

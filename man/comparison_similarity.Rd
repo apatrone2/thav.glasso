@@ -7,7 +7,7 @@
 comparison_similarity(
   n,
   d,
-  seq_C = c(0.4, 0.5, 0.6, 0.7, 0.8),
+  seq_C = c(0.5, 0.6, 0.7, 0.8),
   graph = "random",
   num_reps = 25,
   latex = FALSE

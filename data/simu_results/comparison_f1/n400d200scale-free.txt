@@ -1,25 +1,23 @@
 
 % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: Mo, Sep 21, 2020 - 10:27:13
+% Date and time: Mi, Feb 10, 2021 - 07:58:43
 \begin{table}[!htbp] \centering 
   \caption{} 
   \label{} 
 \begin{tabular}{@{\extracolsep{5pt}} cccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
- & \$F\_1\$ & Precision & Recall \\ 
+ & F1 & Precision & Recall \\ 
 \hline \\[-1.8ex] 
-oracle & 0.42 (0.1) & 0.42 (0.22) & 0.67 (0.26) \\ 
-StARS & 0.34 (0.12) & 0.23 (0.09) & 0.7 (0.14) \\ 
-scaled lasso & 0.44 (0.05) & 0.29 (0.04) & 0.9 (0.07) \\ 
-TIGER & 0.33 (0.05) & 0.2 (0.04) & 0.93 (0.06) \\ 
-score\_ebic1 & 0.54 (0.13) & 0.43 (0.15) & 0.82 (0.11) \\ 
-score\_ebic0.5 & 0.5 (0.14) & 0.37 (0.13) & 0.85 (0.09) \\ 
-scio\_cv & 0.14 (0.25) & 0.28 (0.45) & 0.1 (0.19) \\ 
-scio\_bregman & 0.21 (0.18) & 0.35 (0.4) & 0.71 (0.36) \\ 
-thAV & 0.63 (0.13) & 0.59 (0.19) & 0.75 (0.14) \\ 
-score\_AV & 0.38 (0.09) & 0.95 (0.04) & 0.25 (0.08) \\ 
-scio\_AV & 0.39 (0.1) & 0.98 (0.02) & 0.25 (0.09) \\ 
+oracle & 0.41 (0.08) & 0.41 (0.24) & 0.69 (0.27) \\ 
+StARS & 0.33 (0.11) & 0.22 (0.09) & 0.69 (0.14) \\ 
+scaled lasso & 0.44 (0.04) & 0.29 (0.03) & 0.9 (0.06) \\ 
+TIGER & 0.32 (0.05) & 0.2 (0.04) & 0.93 (0.07) \\ 
+score\_ebic1 & 0.54 (0.13) & 0.44 (0.16) & 0.81 (0.12) \\ 
+score\_ebic0.5 & 0.5 (0.16) & 0.38 (0.15) & 0.84 (0.1) \\ 
+scio\_cv & 0.12 (0.24) & 0.22 (0.43) & 0.08 (0.18) \\ 
+scio\_bregman & 0.24 (0.22) & 0.38 (0.41) & 0.7 (0.35) \\ 
+thAV & 0.63 (0.11) & 0.55 (0.15) & 0.77 (0.1) \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table} 

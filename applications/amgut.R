@@ -3,6 +3,7 @@ devtools::install_github("zdk123/SpiecEasi")
 library("SpiecEasi")
 install_github("joey711/phyloseq")
 library("phyloseq")
+library("ggplot2")
 install("../../thav.glasso")
 require("thav.glasso")
 load_libraries()
@@ -17,7 +18,7 @@ plot_network(ig2.mb, amgut2.filt.phy, type='taxa', color="Rank4", layout.method=
 
 # our method:
 set.seed(45)
-thav <- thAV.estimator(huge.npn(se.mb.amgut2$est$data))
+thav <- thAV.estimator(huge.npn(se.mb.amgut2$est$data), C=0.7, lambda=1)
 adj_thav <- apply( thav, c(1,2), function(x) if(x!=0){ return(1)} else{return(0)})
 ig.thav <- adj2igraph( adj_thav, vertex.attr=list(name=taxa_names(amgut2.filt.phy)))
 
@@ -26,7 +27,7 @@ plot_network(ig.thav, amgut2.filt.phy, type="taxa", color="Rank4")
 
 ## lambda=0.5 :
 set.seed(45)
-thav2 <- thAV.estimator(huge.npn(se.mb.amgut2$est$data), lambda=0.5)
+thav2 <- thAV.estimator(huge.npn(se.mb.amgut2$est$data), C=0.7, lambda=0.5)
 adj_thav2 <- apply(thav2, c(1,2), function(x) if(x!=0){ return(1)} else{return(0)})
 ig.thav2 <- adj2igraph( adj_thav2, vertex.attr=list(name=taxa_names(amgut2.filt.phy)))
 

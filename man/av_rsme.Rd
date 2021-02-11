@@ -4,7 +4,7 @@
 \alias{av_rsme}
 \title{Computes the adaptive validation regularized score matching estimator rSME (AV)}
 \usage{
-av_rsme(data, C = 1.5)
+av_rsme(data, C = 2)
 }
 \arguments{
 \item{data}{Data matrix of size n x d}
