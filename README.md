@@ -1,5 +1,4 @@
-# thav
-Thresholded Adaptive Validation: Tuning the Graphical Lasso for Graph Recovery
+# Thresholded Adaptive Validation: Tuning the Graphical Lasso for Graph Recovery
 
 This repository provides the implementations and simulations described in the paper Thresholded Adaptive Validation: Tuning the Graphical Lasso for Graph Recovery by Mike Laszkiewicz, Asja Fischer, and Johannes Lederer.
 
