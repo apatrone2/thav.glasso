@@ -61,8 +61,7 @@ av_glasso <- function(data, C=0.7)
     counter_r <- counter_r - 1
     r <- seq_r[counter_r]
     newwarm <- glasso(empvar, rho=r, penalize.diagonal=FALSE, start="warm", wi.init=warm[[1]], w.init=warm[[2]])
-    estimates[[counter_r]] <- normalize_theta(newwarm$wi) #newwarm$wi #
-    #warm <- list(normalize_theta(newwarm$wi), normalize_theta(newwarm$w))
+    estimates[[counter_r]] <- normalize_theta(newwarm$wi) 
     warm <- list(newwarm$wi, newwarm$w)
     
     counter_r_dash <- length(seq_r)

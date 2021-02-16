@@ -141,27 +141,27 @@ simu_f1(300, 300)
 ### scale-free graph ###
 ########################
 set.seed(4)
-simu_f1_split(300, 100, 1, graph="scale-free")#
+simu_f1_split(300, 100, 1, graph="scale-free")
 set.seed(11)
-simu_f1_split(300, 100, 2, graph="scale-free")#
+simu_f1_split(300, 100, 2, graph="scale-free")
 set.seed(77)
-simu_f1_split(300, 100, 3, num_reps=5, graph="scale-free")#
+simu_f1_split(300, 100, 3, num_reps=5, graph="scale-free")
 simu_f1(300, 100, graph="scale-free")
 
-  set.seed(12)
-simu_f1_split(200, 200, 1, graph="scale-free")#
+set.seed(12)
+simu_f1_split(200, 200, 1, graph="scale-free")
 set.seed(62)
-simu_f1_split(200, 200, 2, graph="scale-free")#
+simu_f1_split(200, 200, 2, graph="scale-free")
 set.seed(93)
-simu_f1_split(200, 200, 3, graph="scale-free", num_reps=5)#
+simu_f1_split(200, 200, 3, graph="scale-free", num_reps=5)
 simu_f1(200, 200, graph="scale-free")
 
   set.seed(15)
-  simu_f1_split(300, 300, 1, graph="scale-free")#
+  simu_f1_split(300, 300, 1, graph="scale-free")
   set.seed(83)
-  simu_f1_split(300, 300, 2, graph="scale-free")#
+  simu_f1_split(300, 300, 2, graph="scale-free")
 set.seed(55)
-simu_f1_split(300, 300, 3, graph="scale-free", num_reps=5)#
+simu_f1_split(300, 300, 3, graph="scale-free", num_reps=5)
 simu_f1(300, 300, graph="scale-free")
 ```
 
@@ -364,8 +364,8 @@ set.seed(50)
 comparison_density_split(400, 200, c(2/200, 4/200), part=1, num_reps=5)
 set.seed(39)
 comparison_density_split(400, 200, c(2/200, 4/200), part=2, num_reps=5)
-  set.seed(871)
-  comparison_density_split(400, 200, c(2/200, 4/200), part=3, num_reps=5)
+set.seed(871)
+comparison_density_split(400, 200, c(2/200, 4/200), part=3, num_reps=5)
 set.seed(600)
 comparison_density_split(400, 200, c(2/200, 4/200), part=4, num_reps=5)
 set.seed(511)
