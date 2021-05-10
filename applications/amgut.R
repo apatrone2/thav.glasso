@@ -41,6 +41,7 @@ plot_network( delete.vertices(ig.thav, degree(ig.thav)==0), amgut2.filt.phy, typ
   guides(color = guide_legend(nrow=1, byrow=TRUE))
 dev.off()
 
+png("../plots/758-thunbnail.png", width=900, height=600)
 pdf("../plots/amgut_thAV2.pdf", width=10, height=8)#, width=1900, height=1600, res=200)
 par(mar=c(0, 0, 0 ,0))
 plot_network( delete.vertices(ig.thav2, degree(ig.thav2)==0), amgut2.filt.phy, type="taxa", color="Rank4", label=NULL, shape="Rank4") + 
