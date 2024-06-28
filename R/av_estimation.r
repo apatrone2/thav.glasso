@@ -3,7 +3,10 @@
 #' @export
 load_libraries <- function()
 {
-  libraries <- c("huge", "MASS", "thav.glasso", "scalreg", "igraph", "matrixcalc", "genscore", "scio", "stargazer", "glasso")
+  libraries <- c("huge", "MASS", "thav.glasso", "scalreg", "igraph", "matrixcalc", "genscore", "stargazer", "glasso")
+  install.packages("devtools")
+  #library(devtools) # let's assume that this is already downloaded
+  install_github("rluo/scio") #install scio-package direct from the github. Scio was removed from CRAN sometime in 2020.
   lapply(libraries, library, character.only=TRUE)
 }
 
