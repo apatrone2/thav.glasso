@@ -12,6 +12,7 @@ Authors@R:
     person(given = "Johannes",
 	   family = "Lederer",
 	   role = c("aut"))
+Maintainer: Joe Developer <Joe.Developer@some.domain.net>
 Description: This package provides the implementations and simulations described in the paper Thresholded Adaptive Validation: Tuning the Graphical Lasso for Graph Recovery by Mike Laszkiewicz, Asja Fischer, and Johannes Lederer.
 License: MIT
 Encoding: UTF-8
