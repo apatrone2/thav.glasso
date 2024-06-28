@@ -5,10 +5,10 @@ Authors@R:
     person(given = "Mike",
            family = "Laszkiewicz",
            role = c("aut", "cre"),
-           email = "Mike.Laszkiewicz@rub.de")
+           email = "Mike.Laszkiewicz@rub.de"),
     person(given = "Asja",
 	   family = "Fischer",
-	   role = c("aut"))
+	   role = c("aut")),
     person(given = "Johannes",
 	   family = "Lederer",
 	   role = c("aut"))
