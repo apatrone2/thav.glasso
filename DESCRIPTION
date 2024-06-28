@@ -1,8 +1,7 @@
 Package: thav.glasso
 Title: Thresholded Adaptive Validation: Tuning the Graphical Lasso for Graph Recovery.
 Version: 1.0
-Authors@R: 
-    person(given = "Mike",
+Authors@R: c(person(given = "Mike",
            family = "Laszkiewicz",
            role = c("aut", "cre"),
            email = "Mike.Laszkiewicz@rub.de"),
@@ -11,7 +10,7 @@ Authors@R:
 	   role = c("aut")),
     person(given = "Johannes",
 	   family = "Lederer",
-	   role = c("aut"))
+	   role = c("aut")))
 Maintainer: Joe Developer <Joe.Developer@some.domain.net>
 Description: This package provides the implementations and simulations described in the paper Thresholded Adaptive Validation: Tuning the Graphical Lasso for Graph Recovery by Mike Laszkiewicz, Asja Fischer, and Johannes Lederer.
 License: MIT
